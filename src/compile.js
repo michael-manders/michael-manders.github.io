@@ -19,55 +19,60 @@ fs.readdirSync(IMAGE_DIR).forEach((file) => {
 });
 
 projects.forEach((project) => {
-    let json = JSON.parse(
-        fs.readFileSync(projectsPath + project + "/data.json")
-    );
-
-    let obj = {
-        title: project.replace(/-/g, " "),
-        description: json.description,
-        category: json.category,
-        github: json.github,
-        devpost: json.devpost,
-    };
-    if (json.featured) {
-        obj.featured = true;
-    } else {
-        obj.featured = false;
-    }
-
-    obj.images = [];
-
-    let files = fs.readdirSync(projectsPath + project);
-    let images = fs.readdirSync(projectsPath + project + "/images");
-
-    images.forEach((image) => {
-        let newName = `projImg${imageIndex++}.${image.split(".")[1]}`;
-        imagesList.push(newName);
-        fs.copyFileSync(
-            projectsPath + project + "/images/" + image,
-            IMAGE_DIR + newName
+    try {
+        let json = JSON.parse(
+            fs.readFileSync(projectsPath + project + "/data.json")
         );
 
-        obj.images.push(newName);
-    });
+        let obj = {
+            title: project.replace(/-/g, " "),
+            description: json.description,
+            category: json.category,
+            github: json.github,
+            devpost: json.devpost,
+        };
+        if (json.featured) {
+            obj.featured = true;
+        } else {
+            obj.featured = false;
+        }
 
-    // if there is a page.html then it is a project with a deployment.
-    if (files.includes("page.html")) {
-        obj.deployed = `https://michaelmanders.com/builds/${project}/page.html`;
-    } else {
-        obj.deployed = false;
+        obj.images = [];
+
+        let files = fs.readdirSync(projectsPath + project);
+        let images = fs.readdirSync(projectsPath + project + "/images");
+
+        images.forEach((image) => {
+            let newName = `projImg${imageIndex++}.${image.split(".")[1]}`;
+            imagesList.push(newName);
+            fs.copyFileSync(
+                projectsPath + project + "/images/" + image,
+                IMAGE_DIR + newName
+            );
+
+            obj.images.push(newName);
+        });
+
+        // if there is a page.html then it is a project with a deployment.
+        if (files.includes("page.html")) {
+            obj.deployed = `https://michaelmanders.com/builds/${project}/page.html`;
+        } else {
+            obj.deployed = false;
+        }
+
+        projectList.push(obj);
+
+        // now do the markdown thing
+        let converter = new showdown.Converter();
+        let html = converter.makeHtml(
+            fs.readFileSync(projectsPath + project + "/README.md", "utf8")
+        );
+
+        obj.info = html;
+    } catch (e) {
+        console.log(`Error reading data.json for project ${project}:`, e);
+        return; // Skip this project if data.json is not valid
     }
-
-    projectList.push(obj);
-
-    // now do the markdown thing
-    let converter = new showdown.Converter();
-    let html = converter.makeHtml(
-        fs.readFileSync(projectsPath + project + "/README.md", "utf8")
-    );
-
-    obj.info = html;
 });
 
 // write that list to the project home file

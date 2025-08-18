@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/static/css/main.611d499e.css",
+    "main.css": "/static/css/main.05d333b8.css",
     "main.js": "/static/js/main.e34339dd.js",
     "static/media/NanumGothicCoding-Regular.ttf": "/static/media/NanumGothicCoding-Regular.9fd9323b064549a4f804.ttf",
     "static/media/SourceCodePro-Light.ttf": "/static/media/SourceCodePro-Light.6625d83b8c9638c89832.ttf",
@@ -8,11 +8,11 @@
     "static/media/github.png": "/static/media/github.dd2074acf5a60ca46171.png",
     "static/media/devpost.png": "/static/media/devpost.c83ab1258c4084d0a17c.png",
     "index.html": "/index.html",
-    "main.611d499e.css.map": "/static/css/main.611d499e.css.map",
+    "main.05d333b8.css.map": "/static/css/main.05d333b8.css.map",
     "main.e34339dd.js.map": "/static/js/main.e34339dd.js.map"
   },
   "entrypoints": [
-    "static/css/main.611d499e.css",
+    "static/css/main.05d333b8.css",
     "static/js/main.e34339dd.js"
   ]
 }

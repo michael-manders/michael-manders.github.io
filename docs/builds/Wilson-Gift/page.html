@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Wilson Gift</title>
+        <link rel="stylesheet" href="page.css" />
+        <script src="jquery.js"></script>
+        <script src="page.js"></script>
+    </head>
+    <body>
+        <header>
+            <h1>Hi Wilson!</h1>
+            <p>
+                You can use this page to send images to our picture frames. You
+                can draw on the canvas with by clicking and dragging. You can
+                also select the size and color of your brush. Below those
+                options you can select an image to upload to the canvas, it will
+                automatically be color quantized and dithered once uploaded.
+                When finished, simply click who to send it to and it will be
+                sent to that picture frame.
+            </p>
+        </header>
+        <main>
+            <div id="drawing-box">
+                <canvas id="canvas"></canvas>
+                <p>
+                    Color picker:
+                    <select id="selectColor">
+                        <option id="colBlack" value="black" selected="selected">
+                            Black
+                        </option>
+                        <option id="colRed" value="red">Red</option>
+                        <option id="colWhite" value="white">White</option>
+                    </select>
+                </p>
+                <p>
+                    Size:
+                    <input
+                        type="range"
+                        id="selectSize"
+                        min="1"
+                        max="50"
+                        value="5" />
+                    <span id="sizeValue">5</span>
+                </p>
+                <p>
+                    Set Background
+                    <button onclick="setBackground('black')">Black</button>
+                    <button onclick="setBackground('white')">White</button>
+                </p>
+                <p>
+                    <button id="undoButton" onclick="undoState()">Undo</button>
+                    <button id="redoButton" onclick="redoState()">Redo</button>
+                </p>
+            </div>
+
+            <div id="image-upload">
+                <p>
+                    Upload an image to add to the canvas:
+                    <input type="file" id="imageInput" accept="image/*" />
+                </p>
+            </div>
+            <div id="send-options">
+                <button onclick="sendEmail('michael')">Send to Michael</button>
+                <button onclick="sendEmail('wilson')">Send to Wilson</button>
+            </div>
+        </main>
+    </body>
+</html>
